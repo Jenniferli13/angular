@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html ng-app="sportsStore">
+<head>
+    <title>SportsStore</title>
+    <script src="angularjs/angular.js"></script>
+    <script type="text/javascript" src="ngmodules/angular-route.min.js"></script>
+    <script type="text/javascript">
+        angular.module("sportsStore", ["ngRoute", "customFilters", "cart"])
+        .config(function($routeProvider) {
+            $routeProvider.when("/checkout", {
+                templateUrl: "views/checkoutSummary.html"
+            })
+            .when("/complete", {
+                templateUrl: "/views/thankYou.html"
+            })
+            .when("/placeorder", {
+                templateUrl: "/views/placeOrder.html"
+            })
+            .when("/products", {
+                templateUrl: "views/productList.html"
+            })
+            .otherwise({
+                templateUrl: "views/productList.html"
+            });
+        });
+    </script>
+    <script type="text/javascript" src="controllers/sportsStore.js"></script>
+    <script type="text/javascript" src="filters/customFilters.js"></script>
+    <script type="text/javascript" src="controllers/productListController.js"></script>
+    <script type="text/javascript" src="components/cart/cart.js"></script>
+    <script type="text/javascript" src="controllers/checkoutControllers.js"></script>
+    <link href="angularjs/bootstrap-3.3.5-dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="angularjs/bootstrap-3.3.5-dist/css/bootstrap-theme.min.css" rel="stylesheet" />
+    
+</head>
+<body ng-controller="sportsStoreCtrl">
+    <div class="navbar navbar-inverse">
+        <a class="navbar-brand" href="#">SPORTS STORE</a>
+        <cart-summary/>
+    </div>
+    <div class="alert alert-danger" ng-show="data.error">
+        Error ({{data.error.status}}). The product data was not loaded.
+        <a href="/index.html" class="alert-link">Click here to try again</a>
+    </div>
+    <!-- <ng-include src="'views/productList.html'"></ng-include> -->
+    <ng-view></ng-view>
+</body>
+</html>
